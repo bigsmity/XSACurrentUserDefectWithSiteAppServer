@@ -1,0 +1,14 @@
+{
+	"DUMMY": {
+		"target": {
+			"object": "DUMMY",
+			"schema": "SYS"
+		}
+	},
+	"M_SESSION_CONTEXT": {
+		"target": {
+			"object": "M_SESSION_CONTEXT",
+			"schema": "SYS"
+		}
+	}
+}

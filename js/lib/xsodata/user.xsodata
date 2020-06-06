@@ -1,0 +1,4 @@
+service {
+	"views::USER_INFO"
+		as "USER_INFO" keys generate local "GenID";
+}

@@ -1,0 +1,15 @@
+{
+	"xsappname": "CurrentUserDefectWithSiteAppServer",
+	"scopes": [{
+		"name": "$XSAPPNAME.view",
+		"description": "View-only access to application"
+	}, {
+		"name": "$XSAPPNAME.edit",
+		"description": "Edit access to application"
+	}],
+	"role-templates": [{
+		"name": "role_template",
+		"description": "Role template",
+		"scope-references": ["$XSAPPNAME.view"]
+	}]
+}

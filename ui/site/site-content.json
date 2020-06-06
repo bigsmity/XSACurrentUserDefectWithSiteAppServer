@@ -1,0 +1,89 @@
+{
+	"roles": {
+		"Everyone": {
+			"_version": "1.0",
+			"identification": {
+				"id": "Everyone",
+				"namespace": "",
+				"entityType": "role"
+			},
+			"payload": {
+				"catalogs": [],
+				"groups": [{
+					"id": "CurrentUserDefectWithSiteAppServer_ui_GroupId"
+				}]
+			}
+		}
+	},
+	"applications": {
+
+		"CurrentUserDefectWithSiteAppServer_ui": {
+			"sap.app": {
+				"_version": "1.3.0",
+				"id": "CurrentUserDefectWithSiteAppServer_ui",
+				"title": "{{title}}",
+				"i18n": "i18n/i18n.properties",
+				"tags": {
+					"keywords": []
+				},
+				"crossNavigation": {
+					"inbounds": {
+						"CurrentUserDefectWithSiteAppServer_uiShow": {
+							"semanticObject": "CurrentUserDefectWithSiteAppServer_ui",
+							"action": "show",
+							"deviceTypes": {
+								"desktop": true,
+								"tablet": true,
+								"phone": true
+							},
+							"signature": {
+								"parameters": {},
+								"additionalParameters": "allowed"
+							}
+						}
+					},
+					"outbounds": {}
+				}
+			},
+			"sap.ui": {
+				"_version": "1.3.0",
+				"technology": "UI5"
+			},
+			"sap.ui5": {
+				"componentName": "CurrentUserDefectWithSiteAppServer_ui",
+				"_version": "1.2.0"
+			},
+			"sap.platform.cf": {},
+			"sap.platform.runtime": {
+				"componentProperties": {
+					"url": "/"
+				}
+			}
+		}
+
+	},
+	"groups": {
+		"CurrentUserDefectWithSiteAppServer_ui_GroupId": {
+			"identification": {
+				"id": "CurrentUserDefectWithSiteAppServer_ui_GroupId",
+				"i18n": "i18n/i18n.properties",
+				"namespace": "",
+				"title": "{{title}}"
+			},
+			"payload": {
+				"tiles": [{
+					"id": "CurrentUserDefectWithSiteAppServer_ui_tile",
+					"title": "{{title}}",
+					"subTitle": "{{subtitle}}",
+					"icon": "sap-icon://example",
+					"appId": "CurrentUserDefectWithSiteAppServer_ui",
+					"target": {
+						"semanticObject": "CurrentUserDefectWithSiteAppServer_ui",
+						"action": "show",
+						"parameters": []
+					}
+				}]
+			}
+		}
+	}
+}

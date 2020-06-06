@@ -1,0 +1,110 @@
+ID: CurrentUserDefectWithSiteAppServer
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+
+
+ - name: CurrentUserDefectWithSiteAppServer_ui
+   type: html5
+   path: ui
+   parameters:
+     memory: 64M
+   properties:
+     CORS:
+       - uriPattern: .
+         allowedMethods:
+           - GET
+           - POST
+         allowedOrigin:
+           - host: '*'
+     SAP_JWT_TRUST_ACL: 
+       - clientid: '*'
+         identityzone: '*' 
+   requires:
+    - name: CurrentUserDefectWithSiteAppServer_flp
+    - name: CurrentUserDefectWithSiteAppServer_uaa
+    - name: CurrentUserDefectWithSiteAppServer_js_api
+      group: destinations
+      properties:
+        name: CurrentUserDefectWithSiteAppServer_js_dest
+        url: '~{url}'
+        forwardAuthToken: true
+
+
+ - name: CurrentUserDefectWithSiteAppServer_js
+   type: nodejs
+   path: js
+   parameters:
+     memory: 64M
+   properties:
+     CORS:
+       - uriPattern: .
+         allowedMethods:
+           - GET
+           - POST
+         allowedOrigin:
+           - host: '*'
+     SAP_JWT_TRUST_ACL: 
+       - clientid: '*'
+         identityzone: '*' 
+   provides:
+    - name: CurrentUserDefectWithSiteAppServer_js_api
+      public: true
+      properties:
+         url: ${default-url}
+   requires:
+    - name: CurrentUserDefectWithSiteAppServer_uaa
+    - name: CurrentUserDefectWithSiteAppServer_hdi_db
+    - name: CurrentUserDefectWithSiteAppServer_db
+    - name: CurrentUserDefectWithSiteAppServer_auditLog
+    
+    
+
+ - name: CurrentUserDefectWithSiteAppServer_db
+   type: hdb
+   path: db
+   parameters:
+     memory: 64M
+   properties:
+      SAP_JWT_TRUST_ACL:
+        - clientid: '*'
+          identityzone: '*'
+   requires:
+    - name: CurrentUserDefectWithSiteAppServer_uaa
+#    - name: grant_service
+    - name: CurrentUserDefectWithSiteAppServer_hdi_db
+      properties:
+        TARGET_CONTAINER: '~{hdi-container-name}'
+
+
+resources:
+
+ - name: CurrentUserDefectWithSiteAppServer_hdi_db
+   properties:
+      hdi-container-name: '${service-name}'
+   type: com.sap.xs.hdi-container
+
+ - name: CurrentUserDefectWithSiteAppServer_uaa
+   parameters:
+      service: xsuaa
+      service-plan: space
+      path: xs-security.json
+   type: com.sap.xs.uaa
+   
+ - name: CurrentUserDefectWithSiteAppServer_auditLog
+   type: org.cloudfoundry.managed-service
+   parameters:
+      service: auditlog
+      service-plan: free
+   
+ - name: CurrentUserDefectWithSiteAppServer_flp
+   type: com.sap.portal.site-content
+   parameters:
+      config:
+        siteId : CurrentUserDefectLaunchpad
+        
+# - name: grant_service
+#   type: org.cloudfoundry.existing-service
+#   parameters:
+#     service-name: remote_system_grant_service
