@@ -86,12 +86,10 @@ resources:
    type: com.sap.xs.hdi-container
 
  - name: CurrentUserDefectWithSiteAppServer_uaa
+   type: org.cloudfoundry.existing-service
    parameters:
-      service: xsuaa
-      service-plan: space
-      path: xs-security.json
-   type: com.sap.xs.uaa
-   
+     service-name: portal-uaa-CurrentUserDefectLaunchpad
+
  - name: CurrentUserDefectWithSiteAppServer_auditLog
    type: org.cloudfoundry.managed-service
    parameters:
